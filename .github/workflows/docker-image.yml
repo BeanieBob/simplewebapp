@@ -15,14 +15,14 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag simplewebapp:$(date +%s)
+      run: docker build . --file Dockerfile --tag simplewebapp:${{github.run_id}}
     - name: Tag the docker image
-      run: docker tag simplewebapp:$(date +%s) beanie460/simplewebapp:$(date +%s)
+      run: docker tag simplewebapp:${{github.run_id}} beanie460/simplewebapp:${{github.run_id}}
     - name: Login to Docker Hub
       uses: docker/login-action@v3.0.0
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_TOKEN }}
     - name: Push the docker image
-      run: docker push beanie460/simplewebapp:$(date +%s)
+      run: docker push beanie460/simplewebapp:${{github.run_id}}
       
